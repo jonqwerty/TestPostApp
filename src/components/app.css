@@ -1,5 +1,8 @@
-.app {
-    color:blueviolet;
-    font-size: 50px;
-    text-align: center;
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 1080px;
 }
