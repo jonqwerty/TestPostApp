@@ -1,4 +1,5 @@
-const SET_POSTS = "SET_POSTS"
+const SET_POSTS = 'SET_POSTS'
+const SET_IS_FETCHING = 'SET_IS_FETCHING'
 
 
 const initialState = {
@@ -13,13 +14,21 @@ export default function postsReducer(state = initialState, action) {
         case SET_POSTS: 
             return {
                 ...state,
-                items: action.posts
-        }
+                items: action.payload,
+                isFetching: false
+            }
+        case SET_IS_FETCHING:
+            return {
+                ...state, 
+                isFetching: action.payload,
+
+            }
         default:
             return state
     }
 }
 
 
-export const setPosts = (posts) => ({type: SET_POSTS, posts})
+export const setPosts = (posts) => ({type: SET_POSTS, payload:posts})
+export const setIsFetcing = (bool) => ({type: SET_IS_FETCHING, payload:bool})
 

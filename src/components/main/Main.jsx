@@ -1,7 +1,7 @@
-import React, {useEffect } from 'react' 
+import React, {useEffect, useState } from 'react' 
 import './main.css'
 import {useDispatch, useSelector} from "react-redux"
-import { getPosts } from '../actions/posts'
+import { getPosts, getPost } from '../actions/posts'
 import Post from './post/Post'
 
 import axios from 'axios'
@@ -11,11 +11,20 @@ const Main = () => {
 
         const dispatch = useDispatch()
         const posts = useSelector(state => state.posts.items)
+        const isFetching = useSelector(state => state.posts.isFetching)
+        const [searchValue, setSearchValue] = useState('')
 
         useEffect(() => {
             dispatch(getPosts())
         }, [])
         
+        const searchHandler = () => {
+            if (searchValue === '') {
+                dispatch(getPosts())
+            }
+           const searchPost =  posts.filter(post => post.title === searchValue ) 
+            dispatch(setPosts (searchPost))
+        }
 
         // const r = axios.get("https://jsonplaceholder.typicode.com/posts")
         // .then(response => {
@@ -28,10 +37,19 @@ const Main = () => {
     console.log(posts)
     return (
         <div>
+            <div className='search'>
+                <input value={searchValue} onChange={(e) => setSearchValue(e.target.value) } type="text" placeholder='Input post name' className='search-input' />
+                <button onClick={() => searchHandler()} className='search-btn'>Search</button>
+            </div>
            
-            {posts.map(post => 
-                <Post post={post} key={post.id} />
-            )}
+            {   isFetching === false
+                ?
+                posts.map(post => <Post post={post} key={post.id} />)
+                :
+                <div className='fetching'>
+
+                </div>
+            }
         </div>
     )
 }
