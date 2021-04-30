@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from 'react' 
 import './main.css'
 import {useDispatch, useSelector} from "react-redux"
-import { getPosts } from '../actions/posts'
+import { getPosts, getUsers } from '../actions/posts'
 import Post from './post/Post'
 
 import axios from 'axios'
@@ -12,6 +12,7 @@ const Main = () => {
 
         const dispatch = useDispatch()
         const posts = useSelector(state => state.posts.items)
+        const users = useSelector(state => state.posts.users)
 
         const currentPage = useSelector(state => state.posts.currentPage)
         const totalCount = useSelector(state => state.posts.totalCount)
@@ -24,8 +25,11 @@ const Main = () => {
         const pages = []
         createPages(pages, pagesCount, currentPage)
 
+        
+
         useEffect(() => {
             dispatch(getPosts())
+            dispatch(getUsers() )
         }, [])
         
         const searchHandler = () => {
@@ -55,6 +59,7 @@ const Main = () => {
         //    console.log(s)
            
         // })
+    console.log(users)
 
     console.log(posts)
     console.log(totalCount)

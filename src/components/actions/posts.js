@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setIsFetcing, setPosts } from '../../reducers/postsReducer'
+import { setIsFetcing, setPosts, setUsers } from '../../reducers/postsReducer'
 
 export const getPosts = () => {
     
@@ -11,6 +11,16 @@ export const getPosts = () => {
      
 }
 
+export const getUsers = () => {
+    
+    return async (dispatch) => {
+        dispatch(setIsFetcing(true))
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/users`)
+        dispatch(setUsers(response.data))
+    }
+ 
+}
+
 
 
 export const getCurrentPost = async (postid, setPost) => {
@@ -19,11 +29,11 @@ export const getCurrentPost = async (postid, setPost) => {
         setPost (response.data) 
     }
 
-export const getUsers = async (setUsers) => {
+// export const getUsers = async (setUsers) => {
     
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/users`)
-        setUsers (response.data) 
-    }
+//         const response = await axios.get(`https://jsonplaceholder.typicode.com/users`)
+//         setUsers (response.data) 
+//     }
 
 export const getComments = async (postid, setComments) => {
     

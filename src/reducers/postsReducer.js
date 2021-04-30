@@ -1,4 +1,5 @@
 const SET_POSTS = 'SET_POSTS'
+const SET_USERS = 'SET_USERS'
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
@@ -7,6 +8,9 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const initialState = {
     items: [
         
+    ],
+    users: [
+
     ],
     
     isFetching: true,
@@ -23,6 +27,13 @@ export default function postsReducer(state = initialState, action) {
                 items: action.payload,
                 totalCount: action.payload.length,
                 isFetching: false
+            }
+        case SET_USERS: 
+            return {
+                ...state,
+                users: action.payload,
+                
+               
             }
         case SET_IS_FETCHING:
             return {
@@ -42,6 +53,7 @@ export default function postsReducer(state = initialState, action) {
 
 
 export const setPosts = (posts) => ({type: SET_POSTS, payload:posts})
+export const setUsers = (users) => ({type: SET_USERS, payload:users})
 export const setIsFetcing = (bool) => ({type: SET_IS_FETCHING, payload:bool})
 export const setCurrentPage = (page) => ({type: SET_CURRENT_PAGE, payload:page})
 
