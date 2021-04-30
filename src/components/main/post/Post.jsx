@@ -6,7 +6,7 @@ const Post = (props) => {
     const post = props.post
     return (
         <div className='post'>
-            <div className='post-title'><NavLink to ={'/card'}>{post.title}</NavLink></div>
+            <div className='post-title'><NavLink to ={`/card/${post.id}`}>{post.title}</NavLink></div>
             <div className='post-body'>{post.body}</div>
 
         </div>

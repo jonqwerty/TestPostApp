@@ -13,7 +13,7 @@ const App = () => {
             <div className="container">
                 <Switch>
                   <Route exact path="/" component={Main} />
-                  <Route path="/card" component={Card} />
+                  <Route path="/card/:postid?" component={Card} />
                   <Route path='*' render={ () => <div>404 NOT FOUND</div>} />
                 </Switch>
                 
