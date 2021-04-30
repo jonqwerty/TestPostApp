@@ -5,6 +5,7 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 
 
+
 const initialState = {
     items: [
         
@@ -46,6 +47,7 @@ export default function postsReducer(state = initialState, action) {
                 ...state,
                 currentPage: action.payload
             }
+       
         default:
             return state
     }

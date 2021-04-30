@@ -7,6 +7,7 @@ import Post from './post/Post'
 import axios from 'axios'
 import { setPosts, setCurrentPage } from '../../reducers/postsReducer'
 import { createPages } from '../../utils/pagesCreator'
+import Filter from './filter/Filter'
 
 const Main = () => {
 
@@ -59,6 +60,9 @@ const Main = () => {
         //    console.log(s)
            
         // })
+    
+    
+
     console.log(users)
 
     console.log(posts)
@@ -66,6 +70,7 @@ const Main = () => {
     console.log(currentPage)
     return (
         <div>
+            <Filter />
             <div className='search'>
                 <input value={searchValue} onChange={(e) => setSearchValue(e.target.value) } type="text" placeholder='Input post name' className='search-input' />
                 <button onClick={() => searchHandler()} className='search-btn'>Search</button>
@@ -75,7 +80,7 @@ const Main = () => {
                 ?
 
                 //posts.map(post => <Post post={post} key={post.id} />)
-
+                
                 posts.slice(perPage*(currentPage-1),(perPage*(currentPage-1)+perPage)).map(post => <Post post={post} key={post.id} />)
                 :
                 <div className='fetching'>
