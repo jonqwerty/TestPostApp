@@ -26,18 +26,24 @@ const Main = () => {
 
         useEffect(() => {
             dispatch(getPosts())
-        }, [currentPage])
+        }, [])
         
         const searchHandler = () => {
            console.log('press search')
-            dispatch(setCurrentPage(1))
+           
             
+           dispatch(setCurrentPage(1))
             if (searchValue === '') {
                 dispatch(getPosts())
             }
 
-           
-           const searchPost =  posts.filter(post => post.title === searchValue ) 
+            dispatch(setCurrentPage(1))
+
+            // search for a complete match
+           //const searchPost =  posts.filter(post => post.title === searchValue ) 
+
+           // search for  not complete match
+           const searchPost =  posts.filter(post => post.title.includes(searchValue )) 
             dispatch(setPosts (searchPost))
             
         }
