@@ -5,8 +5,32 @@
 }
 
 .title {
+    text-transform: uppercase;
     text-align: center;
     font-size: 1.5em;
     font-weight: 700;
     margin-bottom: 30px;
+}
+
+span {
+    font-weight: 700;
+    padding-left: 15px;
+    
+}
+
+.card-body {
+    padding-top: 10px;
+    font-size: 1.3em;
+}
+
+.title-comments {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.comment {
+    padding-top: 15px;
+    padding-bottom: 15px;
 }

@@ -35,17 +35,15 @@ const Card = (props) => {
             <button onClick={()=>props.history.goBack()} className='back-btn'>Back to list of posts</button>
             <div className='card'>
                 <div className='title'>{post.title}</div>
-                <div className ='name'>Author of post:
-                {user.map(u => <span key = {u.id}>{u.name}</span>)}
+                <div className ='author'>Author of post:
+                {user.map(u => <span  key = {u.id}>{u.name}</span>)}
                 </div>
-                <div className='body'>{post.body}</div>
+                <div className='card-body'>{post.body}</div>
 
-                <div>Comments</div>
+                <div className='title-comments'>Comments</div>
                 <div>
-                {comments.map(c => <div key = {c.id}>{c.body}</div>)}
+                {comments.map(c => <div className='comment'  key = {c.id}> ⚫ {c.body}</div>)}
                 </div>
-
-
 
             </div>
         </div>
