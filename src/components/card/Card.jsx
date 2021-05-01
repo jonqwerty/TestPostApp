@@ -1,60 +1,68 @@
 import React, {useState, useEffect} from 'react' 
 import { useParams } from 'react-router'
-import { getComments, getCurrentPost, getUsers } from '../actions/posts'
+import { getComments, getCommentsWithAdd, getCurrentPost, getUsers } from '../actions/posts'
 import {useDispatch, useSelector} from "react-redux"
 import './card.css'
 
 
+
 const Card = (props) => {
+
     const dispatch = useDispatch()
     const users = useSelector(state => state.posts.users)
 
+   
     const {postid} = useParams()
     const [post, setPost] = useState({})
-    //const [users, setUsers] = useState([])
+    
     const [comments, setComments] = useState([])
     
     const user = users.filter(u => u.id === post.userId)
 
     const [addComment, setAddComment ] = useState()
+
     const handleTextComment = (e) => {
-        setAddComment(e.target.value)
-        
+        setAddComment(e.target.value)   
     }
+
+    
     const handleAddComment = (e) => {
         e.preventDefault()
         
         const obj = {
+            id: Date.now(),
             postId: postid,
             body: addComment
         }
 
         const serialObj = JSON.stringify(obj)
-        localStorage.setItem(postid, serialObj)
-
+        localStorage.setItem(`${postid}/${Date.now()}`, serialObj)
         // localStorage.setItem('postId', postid)
         // localStorage.setItem('comment', addComment)
         setAddComment('')
+        
     }
 
     useEffect(() => {
         dispatch(getUsers() )
         getCurrentPost(postid, setPost)
-        //getUsers(setUsers)
         getComments(postid, setComments)
         
-    }, [comments])
+    }, [])
 
-    
+
+    useEffect(() => {
+        getCommentsWithAdd(postid, setComments)
+        
+    }, [addComment])
+
 
     console.log(post)
     console.log(postid)
     console.log(users)
     console.log(user)
     console.log(comments)
-    
-
-    
+      
     return (
         <div>
             <button onClick={()=>props.history.goBack()} className='back-btn'>Back to list of posts</button>
@@ -67,7 +75,7 @@ const Card = (props) => {
 
                 <div className='title-comments'>Comments</div>
                 <div>
-                {comments.map((c, index) => <div className='comment'  key = {index}> ⚫ {c.body}</div>)}
+                {comments.map((c, index) => <div className='comment'  key = {c.id}> ⚫ {c.body}</div>)}
                 </div>
 
             </div>

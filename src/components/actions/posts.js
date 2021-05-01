@@ -36,19 +36,55 @@ export const getCurrentPost = async (postid, setPost) => {
 //     }
 
 export const getComments = async (postid, setComments) => {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
+    setComments (response.data) 
+}
 
-    if (localStorage.getItem(postid) !== null) {
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
-        const s = []
-        const returnObj = JSON.parse(localStorage.getItem(postid))
-        s.push(returnObj)
-        const all = response.data.concat(s) 
-        setComments (all) 
-    } else {
-        const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
+
+export const getCommentsWithAdd = async (postid, setComments) => {
+    
+     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
+     const arr = []
+     const s = localStorage
+     
+
+     for (var i = 0; i < s.length; i++) { 
+         const key = s.key(i)
+         const id = key.split('/')[0]
+         
+         console.log(id + " = " + s.getItem(key))
+
+         
+
+         if (id === postid ) {
+             //alert(id + "=" + key)
+             const returnObj = JSON.parse(localStorage.getItem(key))
+             arr.push(returnObj)
+             const all = response.data.concat(arr)
+             const allSort = all.sort((a, b) => a.id - b.id) 
+             console.log('masiv:',all)
+             setComments (allSort)
+         } 
+        
+     }
+        
+    
+
+
+
+    //   if (localStorage.getItem(postid) !== null ) {
+    //       const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
+        
+    //       const s = []
+    //       const returnObj = JSON.parse(localStorage.getItem(postid))
+    //       s.push(returnObj)
+    //       const all = response.data.concat(s) 
+    //       setComments (all) 
+    //   } else {
+    //       const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
        
-        setComments (response.data) 
-    }
+    //       setComments (response.data) 
+    //   }
     
         
     }
