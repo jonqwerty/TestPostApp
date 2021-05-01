@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react' 
 import { useParams } from 'react-router'
-import { getComments, getCommentsWithAdd, getCurrentPost, getUsers } from '../actions/posts'
+import { getComments, getCommentsWithAdd, getCurrentPost, getUsers, getAllComments } from '../actions/posts'
 import {useDispatch, useSelector} from "react-redux"
 import './card.css'
+import { setAllComments } from '../../reducers/postsReducer'
 
 
 
@@ -10,8 +11,8 @@ const Card = (props) => {
 
     const dispatch = useDispatch()
     const users = useSelector(state => state.posts.users)
+    const allComments = useSelector(state => state.posts.comments)
 
-   
     const {postid} = useParams()
     const [post, setPost] = useState({})
     
@@ -25,43 +26,62 @@ const Card = (props) => {
         setAddComment(e.target.value)   
     }
 
-    
     const handleAddComment = (e) => {
         e.preventDefault()
         
         const obj = {
             id: Date.now(),
-            postId: postid,
+            postId: +postid,
             body: addComment
         }
 
-        const serialObj = JSON.stringify(obj)
-        localStorage.setItem(`${postid}/${Date.now()}`, serialObj)
-        // localStorage.setItem('postId', postid)
-        // localStorage.setItem('comment', addComment)
+        // const serialObj = JSON.stringify(obj)
+        // localStorage.setItem(`${postid}/${Date.now()}`, serialObj)
+        
+        const all = JSON.parse(localStorage.getItem('allComments'))
+
+         all.push(obj)
+        localStorage.setItem('allComments', JSON.stringify(all) )
+        dispatch(setAllComments (all))
         setAddComment('')
         
     }
 
+    const [all, setAll] = useState()
+
+    const getCommentsForPost = (postid, setComments) => {
+        //debugger
+        const all = JSON.parse(localStorage.getItem('allComments'))
+        let commentsForPost = all.filter(c => c.postId === +postid )
+        setComments(commentsForPost)
+    }
+
+    
     useEffect(() => {
         dispatch(getUsers() )
         getCurrentPost(postid, setPost)
-        getComments(postid, setComments)
+
+        if (localStorage.getItem('allComments') === null) {
+            localStorage.setItem('allComments', JSON.stringify(allComments) )
+        }
         
+        getCommentsForPost(postid, setComments)
+        console.log('log 1')
     }, [])
 
 
-    useEffect(() => {
-        getCommentsWithAdd(postid, setComments)
-        
-    }, [addComment])
+     useEffect(() => {
+         console.log('log 2')
+         getCommentsForPost(postid, setComments)
+     }, [addComment])
 
 
     console.log(post)
     console.log(postid)
     console.log(users)
     console.log(user)
-    console.log(comments)
+    console.log('allComments',allComments)
+    console.log('comments for post',comments)
       
     return (
         <div>
@@ -75,7 +95,14 @@ const Card = (props) => {
 
                 <div className='title-comments'>Comments</div>
                 <div>
-                {comments.map((c, index) => <div className='comment'  key = {c.id}> ⚫ {c.body}</div>)}
+                {comments.map((c, index) => <div className='comment'  key = {c.id}> 
+                <div>⚫ {c.body}</div>
+                <button>Edit</button>
+                <button>Delete</button>
+                
+                </div>
+                
+                )}
                 </div>
 
             </div>

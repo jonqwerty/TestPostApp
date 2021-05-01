@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setIsFetcing, setPosts, setUsers } from '../../reducers/postsReducer'
+import { setIsFetcing, setPosts, setUsers, setAllComments } from '../../reducers/postsReducer'
 
 export const getPosts = () => {
     
@@ -21,6 +21,16 @@ export const getUsers = () => {
  
 }
 
+export const getAllComments = () => {
+    
+    return async (dispatch) => {
+        dispatch(setIsFetcing(true))
+        const response = await axios.get(`https://jsonplaceholder.typicode.com/comments`)
+        dispatch(setAllComments(response.data))
+    }
+ 
+}
+
 
 
 export const getCurrentPost = async (postid, setPost) => {
@@ -29,14 +39,15 @@ export const getCurrentPost = async (postid, setPost) => {
         setPost (response.data) 
     }
 
-// export const getUsers = async (setUsers) => {
+//  export const getAllComments = async (setAllComments) => {
     
-//         const response = await axios.get(`https://jsonplaceholder.typicode.com/users`)
-//         setUsers (response.data) 
-//     }
+//          const response = await axios.get(`https://jsonplaceholder.typicode.com/comments`)
+//          setAllComments(response.data)
+//      }
 
 export const getComments = async (postid, setComments) => {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
+    //localStorage.setItem('comments', JSON.stringify(response.data) )
     setComments (response.data) 
 }
 

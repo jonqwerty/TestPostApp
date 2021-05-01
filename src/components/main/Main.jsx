@@ -1,19 +1,21 @@
 import React, {useEffect, useState } from 'react' 
 import './main.css'
 import {useDispatch, useSelector} from "react-redux"
-import { getPosts, getUsers } from '../actions/posts'
+import { getAllComments, getPosts, getUsers } from '../actions/posts'
 import Post from './post/Post'
 
-import axios from 'axios'
 import { setPosts, setCurrentPage } from '../../reducers/postsReducer'
 import { createPages } from '../../utils/pagesCreator'
 import Filter from './filter/Filter'
+
+
 
 const Main = () => {
 
         const dispatch = useDispatch()
         const posts = useSelector(state => state.posts.items)
         const users = useSelector(state => state.posts.users)
+        const allComments = useSelector(state => state.posts.comments)
 
         const currentPage = useSelector(state => state.posts.currentPage)
         const totalCount = useSelector(state => state.posts.totalCount)
@@ -26,12 +28,16 @@ const Main = () => {
         const pages = []
         createPages(pages, pagesCount, currentPage)
 
-        
-
         useEffect(() => {
             dispatch(getPosts())
             dispatch(getUsers() )
+
+            if (localStorage.getItem('allComments') === null) {
+                dispatch(getAllComments())
+            }
         }, [])
+
+        
         
         const searchHandler = () => {
            console.log('press search')
@@ -67,6 +73,7 @@ const Main = () => {
     console.log(users)
 
     console.log(posts)
+    console.log(' allComments Main Component',allComments)
     console.log(totalCount)
     console.log(currentPage)
     return (
@@ -78,10 +85,7 @@ const Main = () => {
             </div>
            
             {   isFetching === false
-                ?
-
-                //posts.map(post => <Post post={post} key={post.id} />)
-                
+                ?                
                 posts.slice(perPage*(currentPage-1),(perPage*(currentPage-1)+perPage)).map(post => <Post post={post} key={post.id} />)
                 :
                 <div className='fetching'>
