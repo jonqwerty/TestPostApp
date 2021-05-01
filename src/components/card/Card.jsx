@@ -16,6 +16,27 @@ const Card = (props) => {
     
     const user = users.filter(u => u.id === post.userId)
 
+    const [addComment, setAddComment ] = useState()
+    const handleTextComment = (e) => {
+        setAddComment(e.target.value)
+        
+    }
+    const handleAddComment = (e) => {
+        e.preventDefault()
+        
+        const obj = {
+            postId: postid,
+            comment: addComment
+        }
+
+        const serialObj = JSON.stringify(obj)
+        localStorage.setItem(postid, serialObj)
+
+        // localStorage.setItem('postId', postid)
+        // localStorage.setItem('comment', addComment)
+        setAddComment('')
+    }
+
     useEffect(() => {
         dispatch(getUsers() )
         getCurrentPost(postid, setPost)
@@ -50,6 +71,8 @@ const Card = (props) => {
                 </div>
 
             </div>
+            <textarea value = {addComment} onChange={handleTextComment}></textarea>
+            <button disabled={!addComment} onClick={handleAddComment}>Add comment</button>
         </div>
     )
 }

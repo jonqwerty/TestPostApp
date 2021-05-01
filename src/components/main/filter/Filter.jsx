@@ -21,10 +21,12 @@ const Filter = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-       
+        if (author === 'all') {
+            dispatch(getPosts())
+        }
         const filteredPosts =  posts.filter(post => post.userId === +author ) 
         dispatch(setPosts (filteredPosts))
-
+        
         console.log('hi', author, filteredPosts )
        
     }
@@ -33,14 +35,16 @@ const Filter = (props) => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div>Filter by author</div>
-                    <select value={author} onChange={handleChangeAuthor}>
-                        <option value='' selected disabled>Select author</option>
+                    <select value={author} defaultValue={'DEFAULT'} onChange={handleChangeAuthor}>
+                        <option value='DEFAULT'  disabled>Select author</option>
+                        <option value='all'>All</option>
                         {
                             users.map(u => <option value={u.id} key={u.id}>{u.name}</option>)
                         }
+                        
                     </select>
                 <div>
-                    <input type="submit" value="Search"/>
+                    <input disabled={!author} type="submit" value="Search"/>
                 </div>
             </form>
         </div>

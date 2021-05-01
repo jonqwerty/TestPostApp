@@ -50,6 +50,7 @@ const Main = () => {
            // search for  not complete match
            const searchPost =  posts.filter(post => post.title.includes(searchValue )) 
             dispatch(setPosts (searchPost))
+            setSearchValue('')
             
         }
 
