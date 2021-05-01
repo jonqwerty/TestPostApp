@@ -26,7 +26,7 @@ const Card = (props) => {
         
         const obj = {
             postId: postid,
-            comment: addComment
+            body: addComment
         }
 
         const serialObj = JSON.stringify(obj)
@@ -43,7 +43,7 @@ const Card = (props) => {
         //getUsers(setUsers)
         getComments(postid, setComments)
         
-    }, [])
+    }, [comments])
 
     
 
@@ -67,7 +67,7 @@ const Card = (props) => {
 
                 <div className='title-comments'>Comments</div>
                 <div>
-                {comments.map(c => <div className='comment'  key = {c.id}> ⚫ {c.body}</div>)}
+                {comments.map((c, index) => <div className='comment'  key = {index}> ⚫ {c.body}</div>)}
                 </div>
 
             </div>
