@@ -28,6 +28,7 @@ const Main = () => {
         const pages = []
         createPages(pages, pagesCount, currentPage)
 
+
         useEffect(() => {
             dispatch(getPosts())
             dispatch(getUsers() )
@@ -38,11 +39,8 @@ const Main = () => {
         }, [])
 
         
-        
         const searchHandler = () => {
-           console.log('press search')
-           
-            
+                      
            dispatch(setCurrentPage(1))
             if (searchValue === '') {
                 dispatch(getPosts())
@@ -54,28 +52,16 @@ const Main = () => {
            //const searchPost =  posts.filter(post => post.title === searchValue ) 
 
            // search for  not complete match
-           const searchPost =  posts.filter(post => post.title.includes(searchValue )) 
+           const searchPost =  posts.filter(post => post.title.includes(searchValue.toLowerCase() )) 
             dispatch(setPosts (searchPost))
-            setSearchValue('')
-            
+            setSearchValue('') 
         }
 
-        // const r = axios.get("https://jsonplaceholder.typicode.com/posts")
-        // .then(response => {
-            
-        //     const s = response.data
-        //    console.log(s)
-           
-        // })
-    
-    
-
-    console.log(users)
-
-    console.log(posts)
-    console.log(' allComments Main Component',allComments)
-    console.log(totalCount)
-    console.log(currentPage)
+    // console.log(users)
+    // console.log(posts)
+    // console.log(' allComments Main Component',allComments)
+    // console.log(totalCount)
+    // console.log(currentPage)
     return (
         <div>
             <Filter />

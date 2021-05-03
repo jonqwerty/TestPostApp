@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react' 
 import { useParams } from 'react-router'
-import { getComments, getCommentsWithAdd, getCurrentPost, getUsers, getAllComments } from '../actions/posts'
+import {  getCurrentPost, getUsers } from '../actions/posts'
 import {useDispatch, useSelector} from "react-redux"
 import './card.css'
 import { setAllComments } from '../../reducers/postsReducer'

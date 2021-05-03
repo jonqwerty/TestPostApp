@@ -39,15 +39,11 @@ export const getCurrentPost = async (postid, setPost) => {
         setPost (response.data) 
     }
 
-//  export const getAllComments = async (setAllComments) => {
-    
-//          const response = await axios.get(`https://jsonplaceholder.typicode.com/comments`)
-//          setAllComments(response.data)
-//      }
+
 
 export const getComments = async (postid, setComments) => {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
-    //localStorage.setItem('comments', JSON.stringify(response.data) )
+   
     setComments (response.data) 
 }
 
@@ -80,9 +76,6 @@ export const getCommentsWithAdd = async (postid, setComments) => {
      }
         
     
-
-
-
     //   if (localStorage.getItem(postid) !== null ) {
     //       const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postid}/comments`)
         
