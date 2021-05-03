@@ -8,7 +8,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[contenthash].js",
-        publicPath: "/"
+        //publicPath: "/"
+        publicPath: "/TestPostApp/"
     },
     devServer: {
         port: 3000,
