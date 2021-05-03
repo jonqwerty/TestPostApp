@@ -1,6 +1,6 @@
 import React from 'react' 
 import './app.css'
-import{BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
+import{BrowserRouter, Route, Switch, Redirect, HashRouter} from 'react-router-dom'
 import Main from './main/Main'
 import Card from './card/Card'
 import EditPage from './EditPage/EditPage'
@@ -10,7 +10,7 @@ import EditPage from './EditPage/EditPage'
 const App = () => {
 
     return (
-       <BrowserRouter>
+       <HashRouter>
             <div className="container">
                 <Switch>
                   <Route exact path="/" component={Main} />
@@ -21,7 +21,7 @@ const App = () => {
                 
             </div>
             
-       </BrowserRouter>
+       </HashRouter>
     )
 }
 
