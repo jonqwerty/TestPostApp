@@ -10,7 +10,7 @@ import EditPage from './EditPage/EditPage'
 const App = () => {
 
     return (
-       <HashRouter>
+      
             <div className="container">
                 <Switch>
                   <Route exact path="/" component={Main} />
@@ -21,7 +21,7 @@ const App = () => {
                 
             </div>
             
-       </HashRouter>
+      
     )
 }
 
