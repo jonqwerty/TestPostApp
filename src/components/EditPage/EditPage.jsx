@@ -54,7 +54,7 @@ const EditPage = () => {
 
     return(
         <div>
-            <textarea value = {body} onChange={handleChangeBody}></textarea>
+            <textarea cols="60" rows="5" value = {body} onChange={handleChangeBody}></textarea>
             <button onClick={handleEditComment}>Edit comment</button>
         </div>
     )
